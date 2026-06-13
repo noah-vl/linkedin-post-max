@@ -1,10 +1,10 @@
 # linkedin-post-max
 
-A Claude Code skill that writes LinkedIn posts in your actual voice.
+**Post on LinkedIn in your own voice. Consistently, without sounding like an AI.**
 
-You paste 3-5 of your past posts. The skill captures your tone, vocabulary, hooks, and rhythm into a `voices/` file. From then on, you give it an idea, it gives you 2-3 publish-ready drafts that sound like you — not like an AI tool.
+linkedin-post-max learns how you actually write, then turns a rough idea into 2-3 publish-ready drafts that sound like you wrote them. It surfaces fresh things worth reacting to, gets sharper every time you post, and runs as many voices as you need (you, your company, your whole team).
 
-On-demand discovery, not background monitoring. No analytics. No scheduling. Just voice-aware drafting.
+Built for people who show up on LinkedIn regularly and can't afford to sound generic.
 
 ## Install
 
@@ -32,33 +32,38 @@ That's it. The skill is auto-discovered.
 
 Good for kicking the tires. Note: plugins live in a managed cache that refreshes on update, so personal content you create (voices, inbox) can be overwritten. For ongoing personal use, clone instead.
 
-## Start
+## What it does
 
-In any Claude Code session, say something like:
+Five workflows, one per job. The skill reads what you ask and routes to the right one. Nothing to memorize, no commands.
 
-- "Help me write a LinkedIn post"
-- "Draft a hiring post for my company account"
-- "Brainstorm some LinkedIn ideas"
-- "Find me some inspo" / "What's popping in tech?"
+- **Draft a post** — Give it an idea, get 2-3 publish-ready variations in your voice. Vague idea? It coaches you through the angle and hook first, then writes. Your pick lands on the clipboard, ready to paste.
+- **Brainstorm ideas** — 5-8 post ideas drawn from your topics and any inspiration you've saved, each with a hook and an angle so you can move straight to drafting.
+- **Discover fresh angles** — An on-demand web sweep seeded by your topics. It flags what's popping, you pick what's worth reacting to, and it saves to your inspo inbox or goes straight into a draft.
+- **Refine from a published post** — Paste a post you actually shipped. The skill reads it against your voice file and proposes precise updates.
+- **Fold in what it learned** — Promote the patterns it has quietly picked up into your canonical voice file, with your sign-off on every change.
 
-The skill detects intent and routes:
+## Onboarding (about 5 minutes)
 
-- **First time?** → Runs `onboarding.md`. ~5 minutes. Asks for past posts, infers your voice, captures your topics.
-- **Drafting?** → Runs `workflows/create-post.md`. Idea → 2-3 publish-ready variations. Auto-develops vague ideas through a coaching dialogue first.
-- **Brainstorming?** → Runs `workflows/ideas.md`. Generates 5-8 ideas from your topics and any fresh inspo you've saved.
-- **Looking for inspiration?** → Runs `workflows/discover.md`. On-demand web sweep seeded by your topics; pick what's worth reacting to and it lands in your inspo inbox or goes straight to drafting.
+On the first run it walks you through setup: paste 3-5 of your past LinkedIn posts and it infers your tone, vocabulary, hooks, and rhythm into a voice file. Then it captures your topics (what you post about and why) and, optionally, any recurring formats you use. Runs once per author.
 
-## How it learns over time
+## How it gets sharper
 
-As you use the skill, it captures signal across three triggers:
+Every draft teaches it something, three ways:
 
-- **Passive** — when you iterate on a draft ("shorter," "drop the close"), the skill silently logs it to your author's learnings file.
-- **Active** — after clipboard delivery, the skill asks one short question: "what made you pick that one?" (skippable).
-- **Post-back** — paste your actually-published LinkedIn post back in ("post-back for <author>: ..."), and the skill reads it against your voice file.
+- **Passive** — when you tweak a draft ("shorter," "drop the close"), it silently logs the preference.
+- **Active** — after delivery it asks one quick question: "what made you pick that one?" (skippable).
+- **Post-back** — paste what you actually published and it reconciles your voice file against reality.
 
-The learnings file is read live during every draft as soft hints — the canonical voice always wins on conflicts. When you're ready, say "fold in <author>'s learnings" and the skill proposes specific voice-file edits for you to approve.
+Learnings stay as soft hints until you say "fold in my learnings." Your canonical voice always wins on conflicts. Over time, drafts land closer to you on the first try.
 
-Voice grows sharper. Drafts get closer to you.
+## Customize
+
+Everything is plain markdown you edit by hand any time. Change a file and the next draft reflects it. No rebuild, no restart.
+
+- `voices/<name>.md` — tone, vocabulary, hooks, things you'd never say. The skill treats this as law.
+- `topics/<name>.md` — what you post about, your point of view, your audience.
+- `templates/<name>.md` — optional formats for recurring posts (hiring, launch, recap).
+- `config/people.yaml` — your author registry.
 
 ## What's inside
 
@@ -80,15 +85,13 @@ linkedin-post-max/
     └── post-back.md           # Read a published post → propose voice file updates
 ```
 
-Voices, topics, and templates are plain markdown. Edit them by hand any time. The skill reads them on every run.
-
 ## Multi-author
 
-The skill supports multiple authors out of the box. A team can use one shared install where each person has their own voice file. The onboarding flow runs once per author.
+Runs any number of distinct voices from one install: you, your company account, your whole team. Each gets its own voice and learnings. Onboarding runs once per person.
 
-## What this skill does NOT do
+## What it does NOT do
 
-- **No background monitoring.** The `discover` flow runs on-demand web sweeps when you ask ("find me some inspo"), but nothing watches RSS, schedules collection, or tracks trends while you're away.
+- **No background monitoring.** The discover flow runs on-demand web sweeps when you ask ("find me some inspo"), but nothing watches RSS, schedules collection, or tracks trends while you're away.
 - **No scheduling.** Drafts are produced as text. You copy them into LinkedIn yourself.
 - **No analytics.** No engagement tracking, no calendar, no metrics layer.
 
@@ -97,10 +100,6 @@ If you want those, pair this skill with separate tools. Keeping this one focused
 ## De-slop integration
 
 Every draft passes through a de-slop step before output. The skill prefers the [`stop-slop`](https://github.com/anthropics/skills) skill if it's installed, and falls back to an inline checklist if not.
-
-## Sharing
-
-This skill ships with empty `voices/`, `topics/`, and `templates/` directories — no personal content baked in. Fork and personalize freely. To share back, contribute templates or improvements via PR.
 
 ## License
 

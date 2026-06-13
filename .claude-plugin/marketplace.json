@@ -8,7 +8,7 @@
     {
       "name": "linkedin-post-max",
       "source": ".",
-      "description": "Voice-aware LinkedIn drafting: capture each author's voice, discover fresh content to react to, and generate publish-ready posts that sound like the actual person."
+      "description": "LinkedIn posts that actually sound like you. Learns your voice, surfaces fresh angles worth reacting to, and turns ideas into publish-ready drafts that sharpen every time you post."
     }
   ]
 }
