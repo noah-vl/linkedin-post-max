@@ -104,10 +104,10 @@ Otherwise: skip cleanly. Don't ship empty templates.
 
 Create / update these files:
 
-1. **`voices/<slug>.md`** — fill from `voices/_template.md`. Use the data extracted in Step 2.
-2. **`topics/<topic-slug>.md`** for each topic — fill from `topics/_template.md`. Use Step 4 data.
-3. **`templates/<template-slug>.md`** for each (if any) — fill from `templates/_template.md`. Use Step 5 data.
-4. **`config/people.yaml`** — append a new entry:
+1. **`$DATA/voices/<slug>.md`** — fill from `voices/_template.md` (in the skill folder). Use the data extracted in Step 2.
+2. **`$DATA/topics/<topic-slug>.md`** for each topic — fill from `topics/_template.md`. Use Step 4 data.
+3. **`$DATA/templates/<template-slug>.md`** for each (if any) — fill from `templates/_template.md`. Use Step 5 data.
+4. **`$DATA/config/people.yaml`** — append a new entry:
    ```yaml
    people:
      <slug>:
@@ -118,7 +118,7 @@ Create / update these files:
        topics: [<topic-slug>, ...]
        templates: [<template-slug>, ...]   # empty list [] if skipped
    ```
-   **First-run bootstrap:** if `config/people.yaml` doesn't exist, copy `config/people.example.yaml` to `config/people.yaml` first (`cp config/people.example.yaml config/people.yaml`), then append the new entry. The `.example` file is the clean baseline that ships with the skill; the live `people.yaml` holds your personal registry and is gitignored.
+   `setup.sh` (Step 1) already created `$DATA/config/people.yaml` from the shipped example, so just append the new entry to it.
 
 ## Step 7: Confirm + first action
 

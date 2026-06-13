@@ -2,7 +2,7 @@
 name: linkedin-post-max
 description: Use when the user wants to draft or refine a LinkedIn post, develop a vague idea into a post, brainstorm post ideas, discover fresh web content to react to ('find me some inspo', 'what's popping'), paste an actually-published post back to refine voice ('post-back for <author>'), fold an author's accumulated learnings into the canonical voice file ('fold in <author>'s learnings'), set up a new author voice profile, or maintain a personal/company LinkedIn presence with consistent voice across many posts and multiple authors.
 license: MIT
-compatibility: Works in any agent supporting the Agent Skills format. Uses web search/fetch for discovery and shell access for clipboard delivery; runs faster with parallel subagents (e.g. Claude Code) but degrades gracefully without them.
+compatibility: Works in any agent supporting the Agent Skills format. A shell runs scripts/setup.sh to prepare the data directory (a no-shell manual fallback is documented); web search/fetch power discovery and shell access enables clipboard delivery. Runs faster with parallel subagents (e.g. Claude Code) but degrades gracefully.
 ---
 
 # LinkedIn Posting
@@ -40,6 +40,8 @@ bash scripts/setup.sh
 It is idempotent. It resolves the data directory, creates it on first use, migrates any data left in the skill folder by older versions, bootstraps the author registry from the shipped example, and prints the location as its last line: `DATA_DIR=<path>`. Use that path as **`$DATA`** for the rest of the session.
 
 The data directory is `$CLAUDE_PLUGIN_DATA` when that variable is set (Claude Code plugin installs), otherwise `~/.linkedin-post-max`.
+
+**No shell available?** (Some agents or platforms can't run scripts.) Do the same by hand with your file tools: create that data directory with `config/`, `voices/`, `topics/`, `templates/`, and `inspo/` subfolders, and copy `config/people.example.yaml` from the skill folder to `$DATA/config/people.yaml`. Then continue as normal.
 
 **The rule for every path in this skill and its workflows:**
 
@@ -105,7 +107,7 @@ The model reads the user message and routes by judgment — no keyword matching,
 | "Fold in <author>'s learnings" / "Review <author>'s learnings" | `workflows/fold-in-learnings.md` |
 | "Post-back for <author>: <text>" / "I published this for <author>: <text>" | `workflows/post-back.md` |
 | "Set up a new author" / "Onboard X" | `onboarding.md` |
-| "Tune <author>'s voice" / "Edit <author>'s voice" | Point user at `voices/<slug>.md` directly |
+| "Tune <author>'s voice" / "Edit <author>'s voice" | Point user at `$DATA/voices/<slug>.md` directly (run `scripts/setup.sh` first to resolve `$DATA`) |
 | Vague trigger ("open the linkedin skill") | Menu fallback (see below) |
 
 ### Menu fallback
@@ -152,9 +154,11 @@ All user files live under `$DATA/` (see "Where your files live"). Paths below ar
 
 ## Adding new content types
 
+Run `scripts/setup.sh` first to resolve `$DATA`. The `_template.md` sources are in the skill folder; the new files and the registry are under `$DATA/`.
+
 - **New author:** run `onboarding.md`.
-- **New topic:** copy `topics/_template.md` → `topics/<slug>.md`, fill it, then add the slug to the relevant authors in `config/people.yaml`.
-- **New template:** copy `templates/_template.md` → `templates/<slug>.md`, fill it, then add the slug to the relevant authors in `config/people.yaml`.
+- **New topic:** copy `topics/_template.md` (skill folder) → `$DATA/topics/<slug>.md`, fill it, then add the slug to the relevant authors in `$DATA/config/people.yaml`.
+- **New template:** copy `templates/_template.md` (skill folder) → `$DATA/templates/<slug>.md`, fill it, then add the slug to the relevant authors in `$DATA/config/people.yaml`.
 
 ## What this skill is NOT
 
