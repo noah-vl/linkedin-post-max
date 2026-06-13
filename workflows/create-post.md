@@ -22,6 +22,8 @@ If either is missing, ask. Accept input in any natural form.
 
 ## Step 1: Load the author's voice
 
+Run `bash scripts/setup.sh` first and use its `DATA_DIR` output as `$DATA`. All user files below live under `$DATA/` (the `_template`/`.example` files are in the skill folder — see SKILL.md § Where your files live).
+
 1. Read `config/people.yaml`. Find the author by slug.
 2. If `active: false` or the author doesn't exist, stop and tell the user.
 3. Read the voice profile from the path in `voice:`.

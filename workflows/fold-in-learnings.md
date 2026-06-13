@@ -21,6 +21,8 @@ If the author slug isn't given, ask. If multiple authors exist and the user said
 
 ## Step 1: Load and check
 
+Run `bash scripts/setup.sh` first and use its `DATA_DIR` output as `$DATA`. All user files below live under `$DATA/` (the `_template`/`.example` files are in the skill folder — see SKILL.md § Where your files live).
+
 1. Read `config/people.yaml`. Find the author by slug. If not found or `active: false`, stop and tell the user.
 2. Check that `voices/<slug>-learnings.md` exists.
    - If missing or empty (no entries below the header), tell the user: "Nothing to fold in for <name> — the learnings file is empty or doesn't exist yet."

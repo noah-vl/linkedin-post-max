@@ -1,7 +1,7 @@
 {
   "name": "linkedin-post-max",
   "description": "Write LinkedIn posts that sound like you, not a chatbot. It learns from posts you've already published, turns a rough idea into a few ready-to-post drafts, and helps you find things worth writing about.",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "author": {
     "name": "Noah van Lienden"
   },

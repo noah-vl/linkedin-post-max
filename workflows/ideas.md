@@ -20,6 +20,8 @@ Optional modifiers:
 
 ## Step 1: Load context
 
+Run `bash scripts/setup.sh` first and use its `DATA_DIR` output as `$DATA`. All user files below live under `$DATA/` (the `_template`/`.example` files are in the skill folder — see SKILL.md § Where your files live).
+
 1. Read `config/people.yaml`. Find the author.
 2. If not found or `active: false`, stop.
 3. Read their voice profile (`voice:`).

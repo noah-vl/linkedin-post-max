@@ -26,6 +26,8 @@ A nudge narrows the seeds. "Broad" / "blank" runs the full sweep. Never ask more
 
 ## Step 2: Build search seeds
 
+Run `bash scripts/setup.sh` first and use its `DATA_DIR` output as `$DATA`. All user files below live under `$DATA/` (the `_template`/`.example` files are in the skill folder — see SKILL.md § Where your files live).
+
 1. Read `config/people.yaml` for active authors and their topics. Apply scope.
 2. Read each in-scope topic file. Seeds per topic: the topic name, its "Key angles", its "Voices that inspire", plus the user's direction nudge if given.
 3. Read `inspo/inbox.md` and `inspo/archive.md` if they exist. Collect all saved URLs — exclude them from this run's results. Run inbox hygiene (below) while you have the file open.

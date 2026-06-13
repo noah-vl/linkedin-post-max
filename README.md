@@ -62,7 +62,7 @@ These stay as suggestions until you tell it to save them, and your main voice fi
 
 ## Make it yours
 
-Everything is plain text you can edit by hand. Change a file and the next draft follows it. No rebuild, no restart.
+Your content lives in its own folder, separate from the skill, so updates never overwrite it: `~/.linkedin-post-max/` (or `$CLAUDE_PLUGIN_DATA` if you're on a Claude Code plugin install). Everything in it is plain text you can edit by hand. Change a file and the next draft follows it. No rebuild, no restart.
 
 - `voices/<name>.md` — your tone, the words you use, how you open, things you'd never say.
 - `topics/<name>.md` — what you write about, your take on it, who you're writing for.
@@ -71,22 +71,33 @@ Everything is plain text you can edit by hand. Change a file and the next draft 
 
 ## What's inside
 
+The skill folder is the program (safe to update or reinstall):
+
 ```
 linkedin-post-max/
-├── SKILL.md           # Entry point: reads what you want, picks the right step
-├── onboarding.md      # First-time setup (about 5 min)
-├── config/
-│   └── people.yaml    # Your list of authors
-├── voices/            # One file per person: tone, words, openings, examples
-├── topics/            # One file per subject: what you write about and who for
-├── templates/         # Optional. Formats for posts you write often
-├── inspo/             # Things you've saved to write about later
+├── SKILL.md                    # Entry point: reads what you want, picks the right step
+├── onboarding.md               # First-time setup (about 5 min)
+├── scripts/setup.sh            # Prepares your data folder; runs at the start of a session
+├── config/people.example.yaml  # Starter registry, copied to your data folder on first run
+├── voices/_template.md         # Templates the skill fills in (topics/ and templates/ too)
+├── inspo/inbox.example.md      # Shows the saved-item format
 └── workflows/
-    ├── create-post.md         # Idea to finished post
-    ├── ideas.md               # Suggest things to write about
-    ├── discover.md            # Search the web for things worth a post
-    ├── fold-in-learnings.md   # Save what it learned into your voice file
-    └── post-back.md           # Learn from a post you published
+    ├── create-post.md          # Idea to finished post
+    ├── ideas.md                # Suggest things to write about
+    ├── discover.md             # Search the web for things worth a post
+    ├── fold-in-learnings.md    # Save what it learned into your voice file
+    └── post-back.md            # Learn from a post you published
+```
+
+Your content lives separately, in `~/.linkedin-post-max/`, where updates never reach it:
+
+```
+~/.linkedin-post-max/
+├── config/people.yaml   # Your list of authors
+├── voices/              # One file per person: tone, words, openings, examples
+├── topics/              # One file per subject: what you write about and who for
+├── templates/           # Optional formats for posts you write often
+└── inspo/               # Things you've saved to write about later
 ```
 
 ## Multiple voices

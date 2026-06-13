@@ -21,6 +21,8 @@ If the user pastes a long block of text without context, ask: "Is this a post-ba
 
 ## Step 1: Confirm author + read inputs
 
+Run `bash scripts/setup.sh` first and use its `DATA_DIR` output as `$DATA`. All user files below live under `$DATA/` (the `_template`/`.example` files are in the skill folder — see SKILL.md § Where your files live).
+
 1. Identify the author slug from the user's message. If unclear, ask.
 2. Read `config/people.yaml` to confirm the author is active.
 3. Read `voices/<slug>.md` (canonical voice).

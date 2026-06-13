@@ -2,6 +2,11 @@
 
 Defines the terms used across this skill. Defined here once; not redefined elsewhere. When a workflow references a term, it means *this* specific thing.
 
+## Storage
+
+**Data directory** (`$DATA`)
+Where all user content lives, **outside** the skill folder, so updates never overwrite it. Resolved by `scripts/setup.sh`: `$CLAUDE_PLUGIN_DATA` when set (Claude Code plugin installs), otherwise `~/.linkedin-post-max`. Holds `config/people.yaml`, `voices/`, `topics/`, `templates/`, and `inspo/`. Every such path in this skill is under `$DATA/`; only the shipped `_template.md` and `.example.*` files live in the skill folder. _Avoid:_ skill folder, install dir.
+
 ## Authors
 
 **Author**

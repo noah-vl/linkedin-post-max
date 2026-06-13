@@ -10,6 +10,8 @@ Set up a new author so the skill can write posts in their voice. The whole flow 
 
 ## Step 1: Who are we setting up?
 
+First, run `bash scripts/setup.sh` and use its `DATA_DIR` output as `$DATA`. Everything you create below — the voice file, topics, templates, and the `config/people.yaml` entry — gets written under `$DATA/` (read the `_template`/`.example` files from the skill folder; see SKILL.md § Where your files live). Never write into the skill folder.
+
 Ask, in one message:
 
 > Quick setup so I can write LinkedIn posts that sound like you (or a teammate). Takes about 5 minutes.

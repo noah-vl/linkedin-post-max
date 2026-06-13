@@ -27,6 +27,26 @@ The killer move is **voice extraction from past posts**. The user pastes 3-5 Lin
 - `workflows/post-back.md` — read a user's actually-published post against their voice file; proposes a new example and any pattern updates.
 - `onboarding.md` — guided first-time setup.
 
+## Where your files live
+
+User content (voices, topics, templates, the author registry, the inspo inbox) lives **outside the skill folder**, in a data directory that updates never touch. The skill folder ships only the program and read-only references.
+
+**At the start of every session, run the setup script first:**
+
+```bash
+bash scripts/setup.sh
+```
+
+It is idempotent. It resolves the data directory, creates it on first use, migrates any data left in the skill folder by older versions, bootstraps the author registry from the shipped example, and prints the location as its last line: `DATA_DIR=<path>`. Use that path as **`$DATA`** for the rest of the session.
+
+The data directory is `$CLAUDE_PLUGIN_DATA` when that variable is set (Claude Code plugin installs), otherwise `~/.linkedin-post-max`.
+
+**The rule for every path in this skill and its workflows:**
+
+- Paths ending in `_template.md` or `.example.*` are **shipped, read-only**, and live in the **skill folder** (`config/people.example.yaml`, `voices/_template.md`, `topics/_template.md`, `templates/_template.md`, `inspo/inbox.example.md`).
+- **Every other** `config/`, `voices/`, `topics/`, `templates/`, and `inspo/` path is **user content** and lives under **`$DATA/`**. So `voices/<slug>.md` means `$DATA/voices/<slug>.md`, `config/people.yaml` means `$DATA/config/people.yaml`, `inspo/inbox.md` means `$DATA/inspo/inbox.md`, and so on.
+- Never write into the skill folder. Read templates and examples from it; write everything else to `$DATA/`.
+
 ## Routing
 
 When this skill is invoked, decide where to send the user:
@@ -34,8 +54,7 @@ When this skill is invoked, decide where to send the user:
 ```dot
 digraph routing {
     "User invokes skill" [shape=oval];
-    "config/people.yaml exists?" [shape=diamond];
-    "Bootstrap from people.example.yaml" [shape=box];
+    "Run scripts/setup.sh (resolve $DATA)" [shape=box];
     "Any active author?" [shape=diamond];
     "Run onboarding.md" [shape=box];
     "Intent clear from message?" [shape=diamond];
@@ -49,10 +68,8 @@ digraph routing {
     "Open voices/topics/templates file for editing" [shape=box];
     "Add author (onboarding.md)" [shape=box];
 
-    "User invokes skill" -> "config/people.yaml exists?";
-    "config/people.yaml exists?" -> "Bootstrap from people.example.yaml" [label="no"];
-    "Bootstrap from people.example.yaml" -> "Any active author?";
-    "config/people.yaml exists?" -> "Any active author?" [label="yes"];
+    "User invokes skill" -> "Run scripts/setup.sh (resolve $DATA)";
+    "Run scripts/setup.sh (resolve $DATA)" -> "Any active author?";
     "Any active author?" -> "Run onboarding.md" [label="no"];
     "Any active author?" -> "Intent clear from message?" [label="yes"];
     "Intent clear from message?" -> "Detected intent" [label="yes"];
@@ -68,7 +85,7 @@ digraph routing {
 }
 ```
 
-**First-run bootstrap.** If `config/people.yaml` does not exist (fresh install from the distributed zip), copy `config/people.example.yaml` to `config/people.yaml` before continuing. The `.example` file is the clean baseline that ships with the skill; the live `people.yaml` holds the user's personal registry and is gitignored.
+**First-run bootstrap.** Always run `bash scripts/setup.sh` first (see "Where your files live"). It creates the data directory if needed, migrates any data left in the skill folder by older versions, and bootstraps `$DATA/config/people.yaml` from the shipped `config/people.example.yaml`. After it runs, check `$DATA/config/people.yaml` for active authors.
 
 **Be explicit about routing.** State out loud what you're doing: "No authors set up yet — let's run onboarding." or "Sending you to create-post." The user should always know where they are.
 
@@ -126,10 +143,12 @@ Pick a number, or just describe what you want.
 
 ## File conventions
 
-- Voice file path: `voices/<slug>.md` where `<slug>` is the author's first name lowercased.
-- Topic file path: `topics/<slug>.md` where `<slug>` is a short kebab-case name (e.g., `product`, `company-building`).
-- Template file path: `templates/<slug>.md` (e.g., `hiring.md`, `product-update.md`).
-- In `config/people.yaml`: `voice:` uses the full relative path (`voices/<slug>.md`). `topics:` and `templates:` are bare slugs (`product`, `hiring`).
+All user files live under `$DATA/` (see "Where your files live"). Paths below are relative to it.
+
+- Voice file path: `$DATA/voices/<slug>.md` where `<slug>` is the author's first name lowercased.
+- Topic file path: `$DATA/topics/<slug>.md` where `<slug>` is a short kebab-case name (e.g., `product`, `company-building`).
+- Template file path: `$DATA/templates/<slug>.md` (e.g., `hiring.md`, `product-update.md`).
+- In `$DATA/config/people.yaml`: `voice:` uses the path relative to the data dir (`voices/<slug>.md`). `topics:` and `templates:` are bare slugs (`product`, `hiring`).
 
 ## Adding new content types
 
