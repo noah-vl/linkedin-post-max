@@ -1,6 +1,8 @@
 ---
 name: linkedin-post-max
 description: Use when the user wants to draft or refine a LinkedIn post, develop a vague idea into a post, brainstorm post ideas, discover fresh web content to react to ('find me some inspo', 'what's popping'), paste an actually-published post back to refine voice ('post-back for <author>'), fold an author's accumulated learnings into the canonical voice file ('fold in <author>'s learnings'), set up a new author voice profile, or maintain a personal/company LinkedIn presence with consistent voice across many posts and multiple authors.
+license: MIT
+compatibility: Works in any agent supporting the Agent Skills format. Uses web search/fetch for discovery and shell access for clipboard delivery; runs faster with parallel subagents (e.g. Claude Code) but degrades gracefully without them.
 ---
 
 # LinkedIn Posting
@@ -118,7 +120,7 @@ Pick a number, or just describe what you want.
 2. **Never fabricate.** No invented metrics, customers, partners, integrations, features, or quotes. Use `<ASSUMPTION: [what you need]>` placeholders when information is missing.
 3. **Never name real people not provided.** Only mention people by name when the user explicitly gives the name.
 4. **Auto-detected templates must be confirmed.** If the skill detects a hiring/event/launch pattern, surface it: "This looks like a hiring post — use the hiring template?" Never apply silently.
-5. **De-slop every draft before output.** Try the `stop-slop` skill via the Skill tool. If it isn't installed, fall back to the inline checklist in `workflows/create-post.md`.
+5. **De-slop every draft before output.** Try the `stop-slop` skill if your agent can invoke other skills. If it isn't available, fall back to the inline checklist in `workflows/create-post.md`.
 6. **Always present 2-3 variations** of a draft. Each varies hook, structure, or emphasis. Let the user pick.
 7. **No hashtags, no em-dashes, no bold text, no emoji** unless the author's example posts consistently use them.
 

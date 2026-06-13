@@ -149,7 +149,7 @@ Write the LinkedIn post following this priority:
 - **Voice first.** Match the person's tone, vocabulary, sentence structure, and perspective from their voice profile. Read their example posts carefully and mirror the style. Use the hooks list to inspire the opening line — don't copy verbatim, but write something that could belong on that list.
 - **Template second (if applicable).** Follow the template's structure and incorporate its tone modifiers. Voice always wins on tone; template shapes format.
 - **Anchor.** If develop-idea surfaced a specific anchor (person, number, moment), use it in the post. If it's missing, use `<ASSUMPTION: ...>` placeholders rather than inventing.
-- **Inbox-item seed.** If the seed is an inspo inbox item — including an `[anchored]` idea handed off from `workflows/ideas.md` — fetch the actual source (WebFetch) before drafting; the gist is too thin to write from honestly. Claims about the piece must come from the piece; quote or paraphrase faithfully. Name the source in the body but keep the URL out of the post text. If the fetch fails, draft from the gist with `<ASSUMPTION: source unverified>` and say so.
+- **Inbox-item seed.** If the seed is an inspo inbox item — including an `[anchored]` idea handed off from `workflows/ideas.md` — fetch the actual source (use your agent's web-fetch capability) before drafting; the gist is too thin to write from honestly. Claims about the piece must come from the piece; quote or paraphrase faithfully. Name the source in the body but keep the URL out of the post text. If the fetch fails, draft from the gist with `<ASSUMPTION: source unverified>` and say so.
 - **Length.** Use the voice file's typical length range. If absent, aim for 150-250 words. Short and punchy beats long and thorough.
 - **Format.** Text only. No carousels, polls, or images. Generous line breaks between paragraphs (LinkedIn scannability).
 - **No hashtags, em-dashes, bold text, or emoji** unless the voice file explicitly says the author uses them.
@@ -158,7 +158,7 @@ Write the LinkedIn post following this priority:
 
 **Mandatory.** Every draft passes through de-slop before output.
 
-Try the `stop-slop` skill first via the Skill tool. If it's not available, run this inline checklist on the draft:
+Try the `stop-slop` skill first if your agent can invoke other skills. If it's not available, run this inline checklist on the draft:
 
 ### Inline de-slop checklist
 

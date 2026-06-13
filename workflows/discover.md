@@ -30,14 +30,14 @@ A nudge narrows the seeds. "Broad" / "blank" runs the full sweep. Never ask more
 2. Read each in-scope topic file. Seeds per topic: the topic name, its "Key angles", its "Voices that inspire", plus the user's direction nudge if given.
 3. Read `inspo/inbox.md` and `inspo/archive.md` if they exist. Collect all saved URLs — exclude them from this run's results. Run inbox hygiene (below) while you have the file open.
 
-## Step 3: Search in parallel
+## Step 3: Search the web
 
-Fan out one subagent per in-scope topic (Agent tool, run concurrently). Each subagent runs 2-3 web searches:
+Search each in-scope topic with 2-3 web searches. Run topics in parallel if your agent supports concurrent subagents; otherwise do them one at a time:
 
 - a **recent-news** angle: what happened in this space in the last ~3 weeks
 - a **thought-leadership** angle: essays and sharp takes, prioritizing the topic's "Voices that inspire"
 
-Each subagent returns per item: title, URL, one-sentence gist, publish date if visible, source name. The `suggested:` author(s) come from the topic→author mapping in `config/people.yaml`, not from the subagents.
+Capture per item: title, URL, one-sentence gist, publish date if visible, source name. The `suggested:` author(s) come from the topic→author mapping in `config/people.yaml`, not from the search results.
 
 ## Step 4: Filter hard
 

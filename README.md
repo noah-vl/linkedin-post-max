@@ -8,29 +8,35 @@ Built for people who show up on LinkedIn regularly and can't afford to sound gen
 
 ## Install
 
-**Recommended: clone into your skills directory.** This skill stores your personal data — voice profiles, learnings, the inspo inbox, your author registry — inside its own folder. Cloning makes that folder yours, so the data persists and updates are a deliberate `git pull`.
+**Any agent (recommended).** Works with Claude Code, Cursor, Codex, Copilot, Gemini, and other Agent Skills–compatible tools. Installs into your agent's skills directory:
+
+```bash
+npx skills add noah-vl/linkedin-post-max
+```
+
+This skill keeps your personal data — voice profiles, learnings, the inspo inbox, your author registry — inside its own folder, so it persists between sessions.
+
+**Manual (Claude Code).** Clone straight into your skills directory:
 
 ```bash
 git clone https://github.com/noah-vl/linkedin-post-max.git \
   ~/.claude/skills/linkedin-post-max
 ```
 
-Verify Claude can see it:
+Verify your agent can see it (Claude Code path shown; other agents use their own skills directory):
 
 ```bash
 ls ~/.claude/skills/linkedin-post-max/SKILL.md
 ```
 
-That's it. The skill is auto-discovered.
-
-### Or install as a plugin (to try it)
+**Claude Code plugin.** For marketplace install:
 
 ```
 /plugin marketplace add noah-vl/linkedin-post-max
 /plugin install linkedin-post-max@noah-skills
 ```
 
-Good for kicking the tires. Note: plugins live in a managed cache that refreshes on update, so personal content you create (voices, inbox) can be overwritten. For ongoing personal use, clone instead.
+Note: the plugin cache refreshes on update, which can overwrite personal content. For ongoing use, prefer `npx skills add` or a clone.
 
 ## What it does
 
