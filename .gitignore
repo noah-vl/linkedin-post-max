@@ -1,0 +1,22 @@
+# Personal / per-user content — live state, never distributed.
+config/people.yaml
+
+# Populated author voice files. Only the template ships.
+voices/*.md
+!voices/_template.md
+
+# Populated topic files. Only the template ships.
+topics/*.md
+!topics/_template.md
+
+# User-defined post templates. Only the meta-template ships.
+templates/*.md
+!templates/_template.md
+
+# Live inspo inbox + archive. Only the example ships.
+inspo/inbox.md
+inspo/archive.md
+
+# macOS noise
+.DS_Store
+._*

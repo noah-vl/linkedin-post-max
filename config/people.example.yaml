@@ -1,0 +1,21 @@
+# Authors registry — built and maintained by the linkedin-post-max skill.
+#
+# Each entry maps an author slug to their voice file, the topics they post
+# about, and (optionally) post templates they use. Topics and templates are
+# bare slugs — the skill resolves them to `topics/<slug>.md` and
+# `templates/<slug>.md`.
+#
+# Run onboarding.md to add a new author. Edit this file by hand to tune.
+#
+# Example shape:
+#
+# people:
+#   <slug>:                      # lowercase first name, e.g. `alex`
+#     name: <Name>                # display name, e.g. `Alex`
+#     role: <Role>                # e.g. `CEO`, `Head of Marketing`
+#     active: true
+#     voice: voices/<slug>.md     # path to the voice profile
+#     topics: [<topic-slug>, ...] # bare slugs of files in topics/
+#     templates: [<tpl-slug>, ...] # bare slugs of files in templates/
+
+people: {}
