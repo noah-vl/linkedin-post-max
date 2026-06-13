@@ -1,10 +1,8 @@
 # linkedin-post-max
 
-**Post on LinkedIn in your own voice. Consistently, without sounding like an AI.**
+**Write LinkedIn posts that sound like you, not a chatbot.**
 
-linkedin-post-max learns how you actually write, then turns a rough idea into 2-3 publish-ready drafts that sound like you wrote them. It surfaces fresh things worth reacting to, gets sharper every time you post, and runs as many voices as you need (you, your company, your whole team).
-
-Built for people who show up on LinkedIn regularly and can't afford to sound generic.
+Give it a rough idea and it writes a few versions in your own voice, ready to post. It learns how you write from posts you've already published, and it gets better the more you use it. When you're not sure what to write about, it can go find things worth weighing in on. Keep a separate voice for yourself, your company, or anyone on your team.
 
 ## Install
 
@@ -14,7 +12,7 @@ Built for people who show up on LinkedIn regularly and can't afford to sound gen
 npx skills add noah-vl/linkedin-post-max
 ```
 
-This skill keeps your personal data — voice profiles, learnings, the inspo inbox, your author registry — inside its own folder, so it persists between sessions.
+It keeps your own data (your voice profiles, what it has learned, your saved ideas, your list of authors) inside its own folder, so it stays put between sessions.
 
 **Manual (Claude Code).** Clone straight into your skills directory:
 
@@ -23,7 +21,7 @@ git clone https://github.com/noah-vl/linkedin-post-max.git \
   ~/.claude/skills/linkedin-post-max
 ```
 
-Verify your agent can see it (Claude Code path shown; other agents use their own skills directory):
+Check your agent can see it (Claude Code path shown; other agents use their own skills directory):
 
 ```bash
 ls ~/.claude/skills/linkedin-post-max/SKILL.md
@@ -36,76 +34,74 @@ ls ~/.claude/skills/linkedin-post-max/SKILL.md
 /plugin install linkedin-post-max@noah-skills
 ```
 
-Note: the plugin cache refreshes on update, which can overwrite personal content. For ongoing use, prefer `npx skills add` or a clone.
+Heads up: the plugin cache gets refreshed on update, which can wipe content you've created. For regular use, install with `npx skills add` or clone.
 
 ## What it does
 
-Five workflows, one per job. The skill reads what you ask and routes to the right one. Nothing to memorize, no commands.
+Five jobs. Tell it what you want in plain language and it picks the right one.
 
-- **Draft a post** — Give it an idea, get 2-3 publish-ready variations in your voice. Vague idea? It coaches you through the angle and hook first, then writes. Your pick lands on the clipboard, ready to paste.
-- **Brainstorm ideas** — 5-8 post ideas drawn from your topics and any inspiration you've saved, each with a hook and an angle so you can move straight to drafting.
-- **Discover fresh angles** — An on-demand web sweep seeded by your topics. It flags what's popping, you pick what's worth reacting to, and it saves to your inspo inbox or goes straight into a draft.
-- **Refine from a published post** — Paste a post you actually shipped. The skill reads it against your voice file and proposes precise updates.
-- **Fold in what it learned** — Promote the patterns it has quietly picked up into your canonical voice file, with your sign-off on every change.
+- **Write a post.** Give it an idea and get two or three versions in your voice, ready to paste. If the idea is still vague, it asks a few questions to find the angle first, then writes.
+- **Brainstorm ideas.** Get a handful of post ideas pulled from your topics and anything you've saved, each with a starting line so you can go straight to writing.
+- **Find something to write about.** It searches the web around your topics and shows you what's getting attention. Pick what's worth a post and it saves it for later or starts a draft.
+- **Learn from a post you published.** Paste something you actually posted. It reads it against your voice file and suggests small updates.
+- **Save what it has learned.** Roll the things it has picked up into your main voice file, with your okay on each change.
 
-## Onboarding (about 5 minutes)
+## Setup (about 5 minutes)
 
-On the first run it walks you through setup: paste 3-5 of your past LinkedIn posts and it infers your tone, vocabulary, hooks, and rhythm into a voice file. Then it captures your topics (what you post about and why) and, optionally, any recurring formats you use. Runs once per author.
+The first time through, it walks you through setup. Paste three to five of your past LinkedIn posts and it works out your tone, the words you reach for, how you tend to open, and your rhythm, then saves that to a voice file. After that it asks what you post about and why, plus any post formats you reuse. You do this once per person.
 
-## How it gets sharper
+## How it learns your voice
 
-Every draft teaches it something, three ways:
+It picks things up three ways as you work:
 
-- **Passive** — when you tweak a draft ("shorter," "drop the close"), it silently logs the preference.
-- **Active** — after delivery it asks one quick question: "what made you pick that one?" (skippable).
-- **Post-back** — paste what you actually published and it reconciles your voice file against reality.
+- **As you edit.** When you ask for a change ("shorter," "drop the closing line"), it notes the preference.
+- **After you pick a draft.** It asks one quick question: what made you choose that one? You can skip it.
+- **From what you publish.** Paste a post you've put out and it checks your voice file against the real thing.
 
-Learnings stay as soft hints until you say "fold in my learnings." Your canonical voice always wins on conflicts. Over time, drafts land closer to you on the first try.
+These stay as suggestions until you tell it to save them, and your main voice file always wins. Over time the first draft lands closer to how you'd write it yourself.
 
-## Customize
+## Make it yours
 
-Everything is plain markdown you edit by hand any time. Change a file and the next draft reflects it. No rebuild, no restart.
+Everything is plain text you can edit by hand. Change a file and the next draft follows it. No rebuild, no restart.
 
-- `voices/<name>.md` — tone, vocabulary, hooks, things you'd never say. The skill treats this as law.
-- `topics/<name>.md` — what you post about, your point of view, your audience.
-- `templates/<name>.md` — optional formats for recurring posts (hiring, launch, recap).
-- `config/people.yaml` — your author registry.
+- `voices/<name>.md` — your tone, the words you use, how you open, things you'd never say.
+- `topics/<name>.md` — what you write about, your take on it, who you're writing for.
+- `templates/<name>.md` — optional formats for posts you write often (hiring, launch, recap).
+- `config/people.yaml` — the list of authors.
 
 ## What's inside
 
 ```
 linkedin-post-max/
-├── SKILL.md           # Entry point + routing logic
-├── onboarding.md      # Guided 5-min setup
+├── SKILL.md           # Entry point: reads what you want, picks the right step
+├── onboarding.md      # First-time setup (about 5 min)
 ├── config/
-│   └── people.yaml    # Authors registry
-├── voices/            # One file per author (tone, vocab, hooks, examples)
-├── topics/            # One file per content domain (interests, message, audience)
-├── templates/         # Optional. Recurring post formats (hiring, launch, etc.)
-├── inspo/             # Shared inbox of saved content items to react to
+│   └── people.yaml    # Your list of authors
+├── voices/            # One file per person: tone, words, openings, examples
+├── topics/            # One file per subject: what you write about and who for
+├── templates/         # Optional. Formats for posts you write often
+├── inspo/             # Things you've saved to write about later
 └── workflows/
-    ├── create-post.md         # Idea → publish-ready post (auto-routes between develop and direct draft)
-    ├── ideas.md               # Generate post ideas from topics + saved inspo
-    ├── discover.md            # On-demand web sweep → save fresh content to the inspo inbox
-    ├── fold-in-learnings.md   # Promote captured learnings into the canonical voice file
-    └── post-back.md           # Read a published post → propose voice file updates
+    ├── create-post.md         # Idea to finished post
+    ├── ideas.md               # Suggest things to write about
+    ├── discover.md            # Search the web for things worth a post
+    ├── fold-in-learnings.md   # Save what it learned into your voice file
+    └── post-back.md           # Learn from a post you published
 ```
 
-## Multi-author
+## Multiple voices
 
-Runs any number of distinct voices from one install: you, your company account, your whole team. Each gets its own voice and learnings. Onboarding runs once per person.
+Run as many voices as you want from one install: yourself, your company account, your whole team. Each keeps its own voice and its own notes. Setup runs once per person.
 
-## What it does NOT do
+## What it doesn't do
 
-- **No background monitoring.** The discover flow runs on-demand web sweeps when you ask ("find me some inspo"), but nothing watches RSS, schedules collection, or tracks trends while you're away.
-- **No scheduling.** Drafts are produced as text. You copy them into LinkedIn yourself.
-- **No analytics.** No engagement tracking, no calendar, no metrics layer.
+- **It doesn't watch the web for you.** It only goes looking when you ask. Nothing runs in the background.
+- **It doesn't post for you.** You get the text and paste it into LinkedIn yourself.
+- **It doesn't track numbers.** No follower counts, no analytics, no calendar.
 
-If you want those, pair this skill with separate tools. Keeping this one focused is the point.
+## Cleaning up AI tells
 
-## De-slop integration
-
-Every draft passes through a de-slop step before output. The skill prefers the [`stop-slop`](https://github.com/anthropics/skills) skill if it's installed, and falls back to an inline checklist if not.
+Every draft gets a pass to strip the patterns that make writing read as AI-written. It uses the stop-slop skill if your agent has one, and a built-in checklist if not.
 
 ## License
 

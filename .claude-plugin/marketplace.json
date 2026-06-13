@@ -3,12 +3,12 @@
   "owner": {
     "name": "Noah van Lienden"
   },
-  "description": "Skills by Noah van Lienden. Currently: linkedin-post-max — voice-aware LinkedIn drafting with on-demand content discovery.",
+  "description": "Skills by Noah van Lienden. linkedin-post-max writes LinkedIn posts that sound like you.",
   "plugins": [
     {
       "name": "linkedin-post-max",
       "source": ".",
-      "description": "LinkedIn posts that actually sound like you. Learns your voice, surfaces fresh angles worth reacting to, and turns ideas into publish-ready drafts that sharpen every time you post."
+      "description": "Write LinkedIn posts that sound like you, not a chatbot. It learns from posts you've already published, turns a rough idea into a few ready-to-post drafts, and helps you find things worth writing about."
     }
   ]
 }
